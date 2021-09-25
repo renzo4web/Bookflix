@@ -1,0 +1,29 @@
+@api=http://localhost:5000
+@id=614bb062db76064589c434f7
+
+### Add book to db
+POST {{api}}/api/book
+Content-Type: application/json
+
+{
+    "title": "Whatetefac",
+	"author": "renzo",
+	"year": 1994,
+	"status": "to be read"
+}
+
+### get all the books of the user id
+GET {{api}}/api/book/{{id}}
+
+
+### Update a book
+PUT {{api}}/api/book/{{id}}
+Content-Type:application/json
+
+{
+    "title": "sdsd"
+}
+
+### Delete Book by id
+DELETE {{api}}/api/book/{{id}} 
+
