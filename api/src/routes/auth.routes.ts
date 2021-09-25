@@ -22,7 +22,10 @@ router.post(
   "/signup",
 
   [
-    ...checksSign,
+    check("email", "Email must be valid").isEmail(),
+    check("password", "Password must be at leat 6 characters long").isLength({
+      min: 6,
+    }),
     check("name", "Name must be provided").not().isEmpty(),
     signValidate,
   ],

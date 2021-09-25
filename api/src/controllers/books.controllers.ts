@@ -122,9 +122,9 @@ export const deleteBook: RequestHandler<{ id: string }> = async (req, res) => {
 
 export const getBooks: RequestHandler = async (req, res) => {
     try {
-        const book = await Book.find({ user: req.uid });
+        const books = await Book.find({ user: req.uid });
 
-        if (!book) {
+        if (!books) {
             return res.status(204).json({
                 ok: false,
                 msg: "Book not found",
@@ -133,7 +133,7 @@ export const getBooks: RequestHandler = async (req, res) => {
 
         return res.status(201).json({
             ok: true,
-            book,
+            books,
         });
     } catch (error) {
         console.error(error);

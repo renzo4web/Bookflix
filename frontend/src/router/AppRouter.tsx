@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { startChecking } from "../actions/auth/loginActions";
 
-import { startChecking } from "../actions/auth";
 import LoginScreen from "../components/auth/LoginScreen";
 import BookScreen from "../components/book/BookScreen";
 import { RootState } from "../reducers/rootReducer";

@@ -5,6 +5,7 @@ import { TextField } from "formik-material-ui";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { startRegister } from "../../actions/auth/registerActions";
+import { IAddBook } from "../../types/interfaces";
 
 interface FormikValues {
   name: string;
@@ -13,14 +14,14 @@ interface FormikValues {
   confirmPassword: string;
 }
 
-const Register = () => {
+const AddBook = () => {
   const dispatch = useDispatch();
 
-  const formValues: FormikValues = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+  const formValues: IAddBook = {
+    title: "",
+    year: 2000,
+    author: "",
+    status: "reading",
   };
 
   return (
@@ -38,35 +39,40 @@ const Register = () => {
           .oneOf([Yup.ref("password"), null], "Passwords must match")
           .required("Confirm Password is required"),
       })}
-      onSubmit={({ name, email, password }) => {
-        dispatch(startRegister(name, email, password));
+      onSubmit={(fields) => {
+        console.log(fields);
       }}
     >
       {() => (
         <Form>
           <Stack>
-            <Field name="name" type="text" label="Name" component={TextField} />
             <Field
-              name="email"
+              name="title"
               type="text"
-              label="Email"
+              label="Book Title"
               component={TextField}
             />
             <Field
-              name="password"
-              type="password"
-              label="Password"
+              name="author"
+              type="text"
+              label="Author"
               component={TextField}
             />
             <Field
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
+              name="year"
+              type="number"
+              label="Year"
+              component={TextField}
+            />
+            <Field
+              name="year"
+              type="number"
+              label="Year"
               component={TextField}
             />
           </Stack>
           <Button type="submit" variant="contained">
-            Register
+            Add
           </Button>
           <Button type="reset" variant="outlined">
             Reset
@@ -77,4 +83,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default AddBook;

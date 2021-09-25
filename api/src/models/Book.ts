@@ -4,7 +4,7 @@ import { IUser } from "./User";
 export interface Book extends Document {
     title: string;
     author: string;
-    cover: string;
+    cover?: string;
     year: number;
     status: "completed" | "to be read" | "reading";
     user: PopulatedDoc<IUser>;

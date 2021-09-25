@@ -4,6 +4,7 @@ import User, { IUser } from "../models/User";
 
 export const signUp: RequestHandler = async (req, res): Promise<Response> => {
   try {
+    console.log("SIGNUP", req.body);
     const user = req.body as IUser;
 
     const existUser = await User.findOne({ email: user.email });
@@ -19,9 +20,16 @@ export const signUp: RequestHandler = async (req, res): Promise<Response> => {
 
     await newUser.save();
 
-    return res.status(201).json({
+    const token = generateToken({
+      id: newUser.id,
+      name: newUser.name,
+    });
+
+    return res.json({
       ok: true,
-      user: newUser,
+      name: newUser.name,
+      uid: newUser.id,
+      token,
     });
   } catch (error) {
     console.log(error);

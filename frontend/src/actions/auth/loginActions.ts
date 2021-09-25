@@ -1,7 +1,9 @@
+import toast from "react-hot-toast";
 import { ThunkDispatch } from "redux-thunk";
-import { fetchWithoutToken, fetchWithToken } from "../helpers/fetch";
-import { saveTokenLocal } from "../helpers/saveTokenLocal";
-import { AuthAction } from "../reducers/authReducer";
+import { fetchWithoutToken, fetchWithToken } from "../../helpers/fetch";
+import { saveTokenLocal } from "../../helpers/saveTokenLocal";
+import { AuthAction } from "../../reducers/authReducer";
+import { IResponseSignUp } from "../../types/interfaces";
 
 export const startChecking = () => {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
@@ -38,13 +40,15 @@ export const startLogin = (email: string, password: string) => {
         "POST"
       );
 
-      const body = await res.json();
+      const { ok, name, uid, msg, token }: IResponseSignUp = await res.json();
 
-      console.log(body);
-
-      if (body.ok) {
-        saveTokenLocal(body.token);
-        dispatch(login(body.name, body.uid));
+      if (ok) {
+        saveTokenLocal(token);
+        dispatch(login(name, uid));
+        toast.success("Perfect now you are part of Bookflix");
+      } else {
+        msg && toast.error(msg);
+        console.log(msg);
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +56,7 @@ export const startLogin = (email: string, password: string) => {
   };
 };
 
-const login = (name: string = "user", uid: string): AuthAction => ({
+export const login = (name: string = "user", uid: string): AuthAction => ({
   type: "Login",
   payload: {
     uid,

@@ -4,7 +4,7 @@ import { Formik, Field, Form } from "formik";
 import { TextField } from "formik-material-ui";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { startLogin } from "../../actions/auth";
+import { startLogin } from "../../actions/auth/loginActions";
 
 interface FormikValues {
   email: string;
