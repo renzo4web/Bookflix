@@ -4,11 +4,36 @@ import { IUser } from "./User";
 export interface Book extends Document {
     title: string;
     author: string;
-    cover?: string;
+    additionalInfo: AdditionalInfo;
     year: number;
     status: "completed" | "to be read" | "reading";
     user: PopulatedDoc<IUser>;
 }
+
+export interface AdditionalInfo {
+    thumbnail: string;
+    categories: string[];
+    pageCount: number;
+    description: string;
+    previewLink: string;
+    averageRating: number;
+    textSnippet: string;
+}
+
+const additionalInfoSchema = new Schema({
+    thumbnail: String,
+
+    categories: [
+        {
+            type: String,
+        },
+    ],
+    pageCount: Number,
+    description: String,
+    previewLink: String,
+    averageRating: Number,
+    textSnippet: String,
+});
 
 const BookScheme = new Schema<Book>(
     {
@@ -18,32 +43,26 @@ const BookScheme = new Schema<Book>(
             trim: true,
         },
 
-        cover: {
-            type: String,
-            required: false,
-            trim: true,
-        },
+        additionalInfo: additionalInfoSchema,
 
         author: {
             type: String,
-            required: true,
             trim: true,
         },
 
         year: {
             type: Number,
-            required: true,
         },
 
         status: {
             type: String,
-            required: true,
             trim: true,
         },
 
         user: {
             type: Schema.Types.ObjectId,
             ref: "User",
+            get: (v: any) => v.toString(),
             required: true,
         },
     },

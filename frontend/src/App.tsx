@@ -1,6 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import AppRouter from "./router/AppRouter";
+import "./App.css";
 
 import { store } from "./store/store";
 

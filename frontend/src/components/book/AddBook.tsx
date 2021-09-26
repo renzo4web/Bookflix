@@ -1,86 +1,90 @@
-import { Stack } from "@mui/material";
+import { Select, Stack } from "@mui/material/";
+
 import Button from "@mui/material/Button";
 import { Formik, Field, Form } from "formik";
 import { TextField } from "formik-material-ui";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { startRegister } from "../../actions/auth/registerActions";
 import { IAddBook } from "../../types/interfaces";
+import InputLabel from "@material-ui/core/InputLabel";
+import { startAddNewBook } from "../../actions/books/booksActions";
+import { useState } from "react";
+import NativeSelect from "@material-ui/core/NativeSelect";
 
-interface FormikValues {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+export type SelectNative = "reading" | "to be read" | "completed";
 
 const AddBook = () => {
-  const dispatch = useDispatch();
+    const [status, setStatus] = useState("reading");
+    const dispatch = useDispatch();
 
-  const formValues: IAddBook = {
-    title: "",
-    year: 2000,
-    author: "",
-    status: "reading",
-  };
+    const formValues: IAddBook = {
+        title: "",
+        year: 2000,
+        author: "",
+        status: "reading",
+    };
 
-  return (
-    <Formik
-      initialValues={formValues}
-      validationSchema={Yup.object().shape({
-        name: Yup.string().required("Name is required"),
-        email: Yup.string()
-          .email("Email is invalid")
-          .required("Email is required"),
-        password: Yup.string()
-          .min(6, "Password must be at least 6 characters")
-          .required("Password is required"),
-        confirmPassword: Yup.string()
-          .oneOf([Yup.ref("password"), null], "Passwords must match")
-          .required("Confirm Password is required"),
-      })}
-      onSubmit={(fields) => {
-        console.log(fields);
-      }}
-    >
-      {() => (
-        <Form>
-          <Stack>
-            <Field
-              name="title"
-              type="text"
-              label="Book Title"
-              component={TextField}
-            />
-            <Field
-              name="author"
-              type="text"
-              label="Author"
-              component={TextField}
-            />
-            <Field
-              name="year"
-              type="number"
-              label="Year"
-              component={TextField}
-            />
-            <Field
-              name="year"
-              type="number"
-              label="Year"
-              component={TextField}
-            />
-          </Stack>
-          <Button type="submit" variant="contained">
-            Add
-          </Button>
-          <Button type="reset" variant="outlined">
-            Reset
-          </Button>
-        </Form>
-      )}
-    </Formik>
-  );
+    return (
+        <Formik
+            initialValues={formValues}
+            validationSchema={Yup.object().shape({
+                title: Yup.string()
+                    .min(2, "Too Short!")
+                    .max(50, "Too Long!")
+                    .required("title is required"),
+                author: Yup.string().min(2, "Too Short!").max(50, "Too Long!"),
+                year: Yup.number().max(new Date().getFullYear()),
+            })}
+            onSubmit={(fields, { resetForm }) => {
+                dispatch(
+                    startAddNewBook({
+                        ...fields,
+                        status: status as SelectNative,
+                    })
+                );
+                resetForm(formValues);
+            }}>
+            {() => (
+                <Form>
+                    <Stack>
+                        <Field
+                            name='title'
+                            type='text'
+                            label='Book Title'
+                            component={TextField}
+                        />
+                        <Field
+                            name='author'
+                            type='text'
+                            label='Author'
+                            component={TextField}
+                        />
+                        <Field
+                            name='year'
+                            type='number'
+                            label='Year'
+                            component={TextField}
+                        />
+
+                        <InputLabel>Status</InputLabel>
+                        <NativeSelect
+                            value={status}
+                            onChange={({ target }) => setStatus(target.value)}>
+                            <option value={"reading"}>Reading</option>
+                            <option value={"to be read"}>To be read</option>
+                            <option value={"completed"}>Completed</option>
+                        </NativeSelect>
+                    </Stack>
+                    <Button type='submit' variant='contained'>
+                        Add
+                    </Button>
+                    <Button type='reset' variant='outlined'>
+                        Reset
+                    </Button>
+                </Form>
+            )}
+        </Formik>
+    );
 };
 
 export default AddBook;

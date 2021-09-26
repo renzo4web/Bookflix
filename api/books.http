@@ -1,5 +1,6 @@
 @api=http://localhost:5000
-@id=614bb062db76064589c434f7
+@id=614f7d1d01142632f3d4593d
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNGJjZDgyODUxNDhkOGI4MTQ1ODg2NyIsIm5hbWUiOiJSZW56byIsImlhdCI6MTYzMjU5OTcxNSwiZXhwIjoxNjMyNjg2MTE1fQ.7VjnZJRpHx7G5wbVhxZCcM1iEX2NrcsTgLZ3uBrbbvE
 
 ### Add book to db
 POST {{api}}/api/book
@@ -19,6 +20,7 @@ GET {{api}}/api/book/{{id}}
 ### Update a book
 PUT {{api}}/api/book/{{id}}
 Content-Type:application/json
+Authorization: Bearer @{{token}}
 
 {
     "title": "sdsd"
@@ -26,4 +28,6 @@ Content-Type:application/json
 
 ### Delete Book by id
 DELETE {{api}}/api/book/{{id}} 
+Content-Type:application/json
+Authorization:Bearer @{{token}}
 

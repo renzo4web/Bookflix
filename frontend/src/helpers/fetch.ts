@@ -2,7 +2,7 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 export interface IFetch {
   (
-    endpoint: "signin" | "signup" | "book" | "renew",
+    endpoint: "signin" | "signup" | "book" | "renew" | `book/${string}`,
     data?: any,
     method?: "GET" | "POST" | "PUT" | "DELETE"
   ): Promise<any>;

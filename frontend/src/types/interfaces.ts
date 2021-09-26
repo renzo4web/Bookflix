@@ -12,14 +12,25 @@ export interface IResponseGETBook {
   msg?: string;
 }
 
+export interface AdditionalInfo {
+    thumbnail: string;
+    categories: string[];
+    pageCount: number;
+    description: string;
+    previewLink: string;
+    averageRating: number;
+    textSnippet: string;
+}
+
 export interface IBook {
-  _id: string;
-  title: string;
-  author: string;
-  year: number;
-  status: string;
-  createdAt: string;
-  updateAt: string;
+    _id: string;
+    title: string;
+    author: string;
+    year: number;
+    status: string;
+    createdAt: string;
+    updateAt: string;
+    additionalInfo: AdditionalInfo;
 }
 
 export interface IAddBook {

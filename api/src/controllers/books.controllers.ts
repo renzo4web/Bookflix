@@ -1,4 +1,5 @@
 import { Response, Request, RequestHandler } from "express";
+import { getISBN } from "../helpers/getISBN";
 import Book, { Book as IBook } from "../models/Book";
 
 const message = {
@@ -22,6 +23,9 @@ export const addBook: RequestHandler = async (req: IRequest | any, res) => {
         }
 
         book.user = uid;
+        const additionalInfo = await getISBN(book.title);
+
+        book.additionalInfo = additionalInfo;
 
         const doc = await book.save();
 
@@ -60,8 +64,11 @@ export const updateBook: RequestHandler<{ id: string }> = async (req, res) => {
             });
         }
 
+        const additionalInfo = await getISBN(book.title);
+
         const bookToUpdate = {
             ...(req.body as IBook),
+            additionalInfo,
         };
 
         const updated = await Book.findByIdAndUpdate(bookId, bookToUpdate, {
@@ -86,9 +93,9 @@ export const deleteBook: RequestHandler<{ id: string }> = async (req, res) => {
     const bookId = req.params.id;
     const { uid } = req;
 
-    try {
-        // TODO: CHECK IF USER HAVE THE PRIVILGES TO MODIFIED THE DATA
+    console.log("UID", uid);
 
+    try {
         const book = await Book.findOne({ id: bookId })!;
 
         if (!book) {
@@ -98,6 +105,7 @@ export const deleteBook: RequestHandler<{ id: string }> = async (req, res) => {
             });
         }
 
+        console.log("USER", book.user.id);
         if (book.user !== uid) {
             return res.status(401).json({
                 ok: false,
