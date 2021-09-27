@@ -10,33 +10,37 @@ export interface IPayload {
 }
 
 export type AuthAction =
-  | { type: "Start Login"; payload: IPayload }
-  | { type: "Checking Login state"; payload: IPayload }
-  | { type: "Login"; payload: IPayload }
-  | { type: "Checking finish" };
+    | { type: "Start Login"; payload: IPayload }
+    | { type: "Checking Login state"; payload: IPayload }
+    | { type: "Login"; payload: IPayload }
+    | { type: "Checking finish" }
+    | { type: "Logout" };
 
 const initialState: AuthState = {
-  checking: true,
-  uid: null,
-  name: null,
+    checking: true,
+    uid: null,
+    name: null,
 };
 
 export const authReducer = (
-  state: AuthState = initialState,
-  action: AuthAction
+    state: AuthState = initialState,
+    action: AuthAction
 ): AuthState => {
-  switch (action.type) {
-    case "Login":
-      return {
-        ...state,
-        checking: false,
-        ...action.payload,
-      };
+    switch (action.type) {
+        case "Login":
+            return {
+                ...state,
+                checking: false,
+                ...action.payload,
+            };
 
-    case "Checking finish":
-      return { ...state, checking: false };
+        case "Logout":
+            return { checking: false, uid: null, name: null };
 
-    default:
-      return state;
-  }
+        case "Checking finish":
+            return { ...state, checking: false };
+
+        default:
+            return state;
+    }
 };

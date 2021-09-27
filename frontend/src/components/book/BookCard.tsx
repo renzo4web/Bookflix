@@ -38,13 +38,12 @@ const BookCard: React.FC<Props> = ({ book }) => {
         previewLink,
         averageRating,
         categories,
+        pageCount,
         textSnippet,
     } = additionalInfo;
 
     return (
-        <Card
-            sx={{ maxWidth: 345, display: "flex", flexDirection: "column" }}
-            key={title}>
+        <Card sx={{ maxWidth: 345, display: "flex", flexDirection: "column" }}>
             <CardActionArea onClick={() => history.push(`book/${book._id}`)}>
                 <CardMedia
                     component='img'
@@ -61,7 +60,15 @@ const BookCard: React.FC<Props> = ({ book }) => {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions sx={{ mt: "auto" }}>
+            <CardActions
+                sx={{
+                    mt: "auto",
+                    display: "flex",
+                    justifyContent: "space-between",
+                }}>
+                <Typography variant='body2' color='text.secondary'>
+                    Page count: {pageCount}
+                </Typography>
                 <IconButton
                     onClick={() => dispatch(startDeleteBook(book._id))}
                     size='small'

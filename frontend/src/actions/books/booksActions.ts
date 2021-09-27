@@ -5,6 +5,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { fetchWithToken } from "../../helpers/fetch";
 import {
     AddNewBook,
+    ClearState,
     DeleteBook,
     GetBooks,
     UpdateBook,
@@ -19,7 +20,6 @@ export const bookStartLoading = () => {
 
             if (ok) {
                 dispatch(loadBooksFromDB(books));
-                toast.success("Books Loaded");
             } else {
                 msg && toast.error(msg);
             }
@@ -118,3 +118,10 @@ const deleteBook = (id: string): DeleteBook => ({
     type: "DELETE_BOOK",
     payload: id,
 });
+
+export const clearBooksState = (): ClearState => ({
+    type: "CLEAR_BOOKS_STATE",
+});
+    
+
+
