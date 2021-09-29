@@ -1,4 +1,4 @@
-import { Select, Stack } from "@mui/material/";
+import { Select, Stack, Typography } from "@mui/material/";
 
 import Button from "@mui/material/Button";
 import { Formik, Field, Form } from "formik";
@@ -46,7 +46,10 @@ const AddBook = () => {
             }}>
             {() => (
                 <Form>
-                    <Stack>
+                    <Stack sx={{ ml: 2 }} spacing={2}>
+                        <Typography variant='h4' color='text.primary'>
+                            Add new Book
+                        </Typography>
                         <Field
                             name='title'
                             type='text'
@@ -74,13 +77,16 @@ const AddBook = () => {
                             <option value={"to be read"}>To be read</option>
                             <option value={"completed"}>Completed</option>
                         </NativeSelect>
+                        <Button
+                            type='submit'
+                            variant='contained'
+                            sx={{ mb: 1, mt: 1 }}>
+                            Add
+                        </Button>
+                        <Button type='reset' variant='outlined'>
+                            Reset
+                        </Button>
                     </Stack>
-                    <Button type='submit' variant='contained'>
-                        Add
-                    </Button>
-                    <Button type='reset' variant='outlined'>
-                        Reset
-                    </Button>
                 </Form>
             )}
         </Formik>

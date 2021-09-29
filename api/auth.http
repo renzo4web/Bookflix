@@ -1,4 +1,4 @@
-@api=http://localhost:5000
+@api=https://nifty-brown-a5299b.netlify.app/
 
 
 ### SingIn
@@ -17,6 +17,6 @@ Content-Type: application/json
 
 {
     "name":"Renzo",
-    "email":"renzo9@gmail.com",
+    "email":"renzo1@gmail.com",
     "password":"123456"
 }

@@ -1,6 +1,6 @@
 import { IAddBook, IBook } from "../types/interfaces";
 
-type BooksAction = AddNewBook | GetBooks | DeleteBook | UpdateBook;
+type BooksAction = AddNewBook | GetBooks | DeleteBook | UpdateBook | ClearState;
 
 export type GetBooks = {
     type: "GET_BOOKS_FROM_DB";
@@ -20,6 +20,10 @@ export type UpdateBook = {
 export type DeleteBook = {
     type: "DELETE_BOOK";
     payload: string;
+};
+
+export type ClearState = {
+    type: "CLEAR_BOOKS_STATE";
 };
 
 export interface BookState {
@@ -62,6 +66,10 @@ export const booksReducer = (
                 books: state.books.filter(
                     (book) => book._id !== action.payload
                 ),
+            };
+        case "CLEAR_BOOKS_STATE":
+            return {
+                ...initialState,
             };
 
         default:

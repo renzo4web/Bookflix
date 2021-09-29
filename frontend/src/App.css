@@ -1,8 +1,47 @@
+#root {
+  height: 100%;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+body,html{
+  height: 100%;
+  width: 100vw;
+  background-color: #EFF2F5;
+  padding: 0;
+  margin: 0;
+}
+
+
 .grid_container {
   display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
   width: 100%;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  max-width: 900px;
   gap:1em;
-  margin: 0 auto;
   justify-items: center;
+}
+
+.home_container {
+  margin: 2em auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+
+@media (max-width:800px) {
+
+  .home_container{
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .grid_container{
+    width: 100%;
+    margin: 2em 0;
+  }
+  
 }

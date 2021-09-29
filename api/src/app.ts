@@ -18,7 +18,7 @@ declare global {
 }
 
 const app = express();
-app.set("port", config.DB.PORT);
+app.set("port", config.PORT);
 
 app.use(cors());
 app.use(morgan("dev"));

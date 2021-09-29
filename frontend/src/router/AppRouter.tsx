@@ -41,13 +41,10 @@ const AppRouter = () => {
                     />
 
                     <PrivateRoute
-                        exact
                         path='/book/:id'
                         component={BookScreen}
                         isAuthenticated={Boolean(uid)}
                     />
-
-                    <Redirect to='/' />
                 </Switch>
             </Router>
         </>

@@ -8,23 +8,33 @@ const LoginScreen = () => {
   const [loginForm, setLoginForm] = useState(false);
 
   return (
-    <Box>
-      <Typography variant="h3" component="h1" gutterBottom>
-        Welcome To Bookflix
-      </Typography>
       <Container
-        maxWidth="sm"
-        sx={{
-          bgcolor: "yellow",
-          padding: "2em",
-        }}
-      >
-        <Button onClick={() => setLoginForm((current) => !current)}>
-          {loginForm ? "Create an account" : "Already A user? Login"}
-        </Button>
-        {loginForm ? <Login /> : <Register />}
+          sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              padding: "2em 1em",
+          }}>
+          <Typography variant='h3' component='h1' gutterBottom>
+              Welcome To Bookflix
+          </Typography>
+          <Container
+              maxWidth='sm'
+              sx={{
+                  border: "1px solid black",
+                  borderRadius: "10px",
+                  padding: "2em",
+                  marginBottom: 4,
+              }}>
+              <Button onClick={() => setLoginForm((current) => !current)}>
+                  {loginForm ? "Create an account" : "Already A user? Login"}
+              </Button>
+              {loginForm ? <Login /> : <Register />}
+          </Container>
+          <Typography variant='caption' component='strong'>
+              Made with ❤️ by Renzo
+          </Typography>
       </Container>
-    </Box>
   );
 };
 
