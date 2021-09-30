@@ -48,38 +48,38 @@ export const updateBook: RequestHandler<{ id: string }> = async (req, res) => {
     const { uid } = req;
 
     try {
-        const book = await Book.findOne({ id: bookId })!;
+      const book = await Book.findOne({ id: bookId })!;
 
-        if (!book) {
-            return res.status(204).json({
-                ok: false,
-                msg: "Book not found",
-            });
-        }
-
-        if (book.user !== uid) {
-            return res.status(401).json({
-                ok: false,
-                msg: "User unauthorized no update",
-            });
-        }
-
-        const additionalInfo = await getISBN(book.title);
-
-        const bookToUpdate = {
-            ...(req.body as IBook),
-            additionalInfo,
-        };
-
-        const updated = await Book.findByIdAndUpdate(bookId, bookToUpdate, {
-            new: true,
-            lean: true,
+      if (!book) {
+        return res.status(204).json({
+          ok: false,
+          msg: "Book not found",
         });
+      }
 
-        return res.status(201).json({
-            ok: true,
-            updated,
+      if (book.user !== uid) {
+        return res.status(401).json({
+          ok: false,
+          msg: "User unauthorized no update",
         });
+      }
+      // TODO :Change info wheen is update?
+      const additionalInfo = await getISBN(book.title);
+
+      const bookToUpdate = {
+        ...(req.body as IBook),
+        additionalInfo,
+      };
+
+      const updated = await Book.findByIdAndUpdate(bookId, bookToUpdate, {
+        new: true,
+        lean: true,
+      });
+
+      return res.status(201).json({
+        ok: true,
+        updated,
+      });
     } catch (error) {
         console.error(error);
         return res.status(401).json({

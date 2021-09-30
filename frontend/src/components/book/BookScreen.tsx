@@ -55,6 +55,7 @@ const BookScreen = (props: Props) => {
           alignItems: "center",
           justifyContent: "center",
           padding: "2em",
+          maxWidth: "500px",
           flexGrow: 1,
         }}
       >
@@ -62,7 +63,7 @@ const BookScreen = (props: Props) => {
       </Box>
       <Box
         sx={{
-          flexGrow: 1,
+          flexGrow: 2,
           maxWidth: "600px",
           padding: 10,
           overflow: "scroll",
@@ -72,17 +73,23 @@ const BookScreen = (props: Props) => {
           {title}
         </Typography>
         <Typography component="p" variant="subtitle1" sx={{ paddingX: 2 }}>
-          Categories: {categories}
+          Categories:
+          <Typography component="strong" variant="body1">
+            {categories}
+          </Typography>
         </Typography>
         <Typography
           component="h2"
           variant="h5"
-          sx={{ paddingX: 2, marginY: 20 }}
+          sx={{ paddingX: 2, marginY: 2 }}
         >
-          Current status: {status}
+          Current status:
+          <Typography component="strong" variant="h5" sx={{ color: "green" }}>
+            {status}
+          </Typography>
         </Typography>
 
-        <Typography component="p" variant="body1" sx={{ paddingX: 2, mx: 10 }}>
+        <Typography component="p" variant="body1" sx={{ paddingX: 2 }}>
           {description}
         </Typography>
 
