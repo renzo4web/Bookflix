@@ -4,21 +4,21 @@
   overflow-x: hidden;
 }
 
-body,html{
+body,
+html {
   height: 100%;
   width: 100vw;
-  background-color: #EFF2F5;
+  background-color: #eff2f5;
   padding: 0;
   margin: 0;
 }
 
-
 .grid_container {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   width: 100%;
   max-width: 900px;
-  gap:1em;
+  gap: 1em;
   justify-items: center;
 }
 
@@ -31,17 +31,39 @@ body,html{
   width: 100%;
 }
 
+.book_screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
 
-@media (max-width:800px) {
+.footer {
+  margin-top: auto;
+  margin-bottom: 2em;
+}
 
-  .home_container{
+.loading {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 850px) {
+  .home_container {
     flex-direction: column-reverse;
     align-items: center;
   }
 
-  .grid_container{
+  .grid_container {
     width: 100%;
     margin: 2em 0;
   }
-  
+
+  .book_screen {
+    width: 100%;
+    flex-direction: column;
+  }
 }
