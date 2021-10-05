@@ -4,7 +4,6 @@ import User, { IUser } from "../models/User";
 
 export const signUp: RequestHandler = async (req, res): Promise<Response> => {
   try {
-    console.log("SIGNUP", req.body);
     const user = req.body as IUser;
 
     const existUser = await User.findOne({ email: user.email });
@@ -92,7 +91,6 @@ export const signIn: RequestHandler = async (
 
 export const renewToken: RequestHandler = (req, res) => {
   try {
-    console.log(req);
     const { id, name } = req.user as { id: string; name: string };
 
     const token = generateToken({ id, name });

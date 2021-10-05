@@ -5,11 +5,13 @@ const app = require("../../src/app.ts");
 const server = require("../../src/index.ts");
 
 describe("API Auth signup", () => {
-  //   const apptest = request(http.createServer(app.callback()));
+
 
   it("Testing to see if Jest works", () => {
     expect(1).toBe(1);
   });
+
+
 
   it("should register a user", async () => {
     const res = await request.agent(server).post("/api/signup").send({

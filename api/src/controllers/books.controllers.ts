@@ -13,8 +13,6 @@ interface IRequest extends Request {
 export const addBook: RequestHandler = async (req: IRequest | any, res) => {
   const uid = req.uid;
 
-  console.log("BOOk");
-
   try {
     if (!req.body) {
       return res.status(400).json({
@@ -93,42 +91,39 @@ export const updateBook: RequestHandler<{ id: string }> = async (req, res) => {
 };
 
 export const deleteBook: RequestHandler<{ id: string }> = async (req, res) => {
-    const bookId = req.params.id;
-    const { uid } = req;
+  const bookId = req.params.id;
+  const { uid } = req;
 
-    console.log("UID", uid);
+  try {
+    const book = await Book.findOne({ id: bookId })!;
 
-    try {
-        const book = await Book.findOne({ id: bookId })!;
-
-        if (!book) {
-            return res.status(204).json({
-                ok: false,
-                msg: "Book not found",
-            });
-        }
-
-        console.log("USER", book.user.id);
-        if (book.user !== uid) {
-            return res.status(401).json({
-                ok: false,
-                msg: "User unauthorized no delete",
-            });
-        }
-
-        const bookRemoved = await Book.findByIdAndDelete(bookId);
-
-        return res.status(201).json({
-            ok: true,
-            remove: bookRemoved,
-        });
-    } catch (error) {
-        console.error(error);
-        return res.status(401).json({
-            ok: false,
-            msg: message.errorDb,
-        });
+    if (!book) {
+      return res.status(204).json({
+        ok: false,
+        msg: "Book not found",
+      });
     }
+
+    if (book.user !== uid) {
+      return res.status(401).json({
+        ok: false,
+        msg: "User unauthorized no delete",
+      });
+    }
+
+    const bookRemoved = await Book.findByIdAndDelete(bookId);
+
+    return res.status(201).json({
+      ok: true,
+      remove: bookRemoved,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(401).json({
+      ok: false,
+      msg: message.errorDb,
+    });
+  }
 };
 
 export const getBooks: RequestHandler = async (req, res) => {
