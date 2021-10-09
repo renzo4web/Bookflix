@@ -29,3 +29,5 @@ I wanted to expand my knowledge of the MERN stack and what better way to put it 
 
 
 ### [Live](https://bookflix-r4w.netlify.app/)
+
+/* Copyright Renzo Barrios 2021. All Rights Reserved */
