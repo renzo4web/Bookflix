@@ -15,3 +15,5 @@ function App() {
 }
 
 export default App;
+
+/* Copyright Renzo Barrios 2021. All Rights Reserved */
